@@ -17,7 +17,7 @@ def create_superuser_view(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('todos.urls')), # Твій існуючий шлях
+    path('api/', include('app.urls')), # Твій існуючий шлях
     # 👇 ДОДАЙ ЦЕЙ РЯДОК (це адреса "кнопки")
     path('secret-admin-create/', create_superuser_view),
 ]
