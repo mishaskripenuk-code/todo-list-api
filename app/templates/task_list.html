@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Привіт, {{ request.user }}! 👋</h1>
+    <div>
+        <a href="{% url 'task-create' %}" class="btn btn-primary">+ Додати</a>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Вийти</button>
+        </form>
+    </div>
+</div>
+
+<div class="card p-3">
+    {% for task in tasks %}
+    <div class="d-flex justify-content-between border-bottom py-2">
+        <div>
+            {% if task.completed %}
+                <strike class="text-muted">{{ task.title }}</strike>
+            {% else %}
+                <b>{{ task.title }}</b>
+            {% endif %}
+        </div>
+        <div>
+            <a href="{% url 'task-update' task.id %}" class="text-primary text-decoration-none">✏️</a>
+            <a href="{% url 'task-delete' task.id %}" class="text-danger text-decoration-none">❌</a>
+        </div>
+    </div>
+    {% empty %}
+    <h5 class="text-center text-muted">Справ немає! 🎉</h5>
+    {% endfor %}
+</div>
+
+{% endblock content %}
